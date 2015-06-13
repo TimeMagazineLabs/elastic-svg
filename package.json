@@ -1,0 +1,26 @@
+{
+  "name": "d3-base",
+  "version": "0.0.2",
+  "description": "Responsive SVGs using D3.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TimeMagazine/d3-base"
+  },
+  "keywords": [
+    "D3",
+    "wrapper"
+  ],
+  "author": "Chris Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimeMagazine/d3-base/issues"
+  },
+  "dependencies": {
+    "d3": ">= 3.0.0"
+  },
+  "homepage": "https://github.com/TimeMagazine/d3-base"
+}

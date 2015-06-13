@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Charts example</title>
+		<style>
+.container {
+	max-width: 700px;
+	width: 100%;
+}
+		</style>
+	</head>
+	<body>
+		<div class="container" id="poolball1"></div>
+		<div class="container" id="poolball2"></div>
+		<script src="pool_ball.js" charset="utf-8"></script>
+		<script src="../index.js" charset="utf-8"></script>
+		<script>
+var b1 = elasticSVG("#poolball1", {
+	aspect: 1,
+	resize: "auto"
+});
+
+b1.svg.innerHTML = path;
+
+var b2 = elasticSVG("#poolball1", {
+	aspect: 1,
+	onResize: function(w, h, z) {
+		console.log(w, h, z);
+	}
+});
+
+b2.svg.innerHTML = path;
+		</script>
+	</body>
+</html>
