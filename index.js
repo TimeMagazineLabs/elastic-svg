@@ -45,7 +45,6 @@
 	    }
 		
 		function resize() { 
-			console.log(parent)
 			base.width = parent.clientWidth;
 		    base.height = base.width * opts.aspect;
 		    base.scale = base.width / base.original_width;
@@ -88,6 +87,18 @@
 
 		base.setResize = function(f) {
 			opts.onResize = f;
+		}
+
+		base.changeAspect = function(aspect) {
+			opts.aspect = aspect;
+			base.height = base.width * opts.aspect;
+			svg.setAttributeNS(null, "height", base.height);
+		}
+
+		base.changeHeight = function(height) {
+	    	base.height = height;
+	    	opts.aspect = base.height / base.width;
+			svg.setAttributeNS(null, "height", base.height);
 		}
 
 		base.svg = svg;
