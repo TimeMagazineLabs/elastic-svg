@@ -40,7 +40,7 @@ Sometimes you want an SVG to resize according to its original proportions, other
 	});
 
 ## Change log
-+ *v0.0.4*: Now stays fixed height if only height specified
++ *v0.0.5*: Now stays fixed height if only height specified
 
 ## To Do
 Allow to make an existing SVG responsive
