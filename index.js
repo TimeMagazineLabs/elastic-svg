@@ -1,7 +1,8 @@
+// v0.0.4
+
 (function() {
     var root = this;
 
-	// create a new SVG element
 	var elasticSVG = function(selector, opts) {
 		opts = opts || {};
 
@@ -25,14 +26,17 @@
 		base.original_width = base.width;
 
 		// you can either specify the height or the aspect ratio. If neither is specified, refaults to roughly the golden ratio
+		// specifying the height keeps the svg at a standard height and only resizes the width
+		// specifying the aspect ratio resizes both
 	    if (typeof opts.height !== "undefined") {
 	    	base.height = opts.height;
-	    	opts.aspect = base.height / base.width;
+	    	base.aspect = base.height / base.width;
 	    } else {
 		    opts.aspect = typeof opts.aspect !== "undefined" ? opts.aspect : 0.618;
 			base.height = base.width * opts.aspect;
 	    }
 
+		// create a new SVG element
         var xmlns = "http://www.w3.org/2000/svg";
         var svg = document.createElementNS(xmlns, "svg");
 		svg.setAttributeNS(null, "width", base.width);
@@ -43,14 +47,20 @@
 	    if (opts.resize && opts.resize == "auto") {
 			svg.setAttributeNS(null, "viewBox", "0 0 " + base.width + " " + base.height);
 	    }
-		
-		function resize() { 
-			base.width = parent.clientWidth;
-		    base.height = base.width * opts.aspect;
-		    base.scale = base.width / base.original_width;
 
+		// function called when the window resizes		
+		function resize() { 
+			console.log("resizing base");
+			base.width = parent.clientWidth;
 			svg.setAttributeNS(null, "width", base.width);
-			svg.setAttributeNS(null, "height", base.height);
+
+			// only resize the height if aspect was specified instead of height
+			if (opts.aspect) {
+			    base.height = base.width * opts.aspect;
+				svg.setAttributeNS(null, "height", base.height);
+			}
+
+		    base.scale = base.width / base.original_width;
 
 			// optional callback
 			if (opts.onResize) {
@@ -64,7 +74,7 @@
 		function addResizeEvent(func, dur) {
 		    var oldResize = window.onresize,
 				resizeTimer,
-				dur = typeof dur === "undefined" ? 250 : parseInt(dur, 10);
+				dur = typeof dur === "undefined" ? 100 : parseInt(dur, 10);
 
 			window.onresize = function () {
 				clearTimeout(resizeTimer);
@@ -79,12 +89,13 @@
 			}
 		}
 
-		addResizeEvent(resize, 250);
+		addResizeEvent(resize, 50);
 
 		if (opts.resize && opts.resize === "auto") {
 			resize(); // call this on load since sometimes the initial conditions are wider than container
 		}
 
+		// methods
 		base.setResize = function(f) {
 			opts.onResize = f;
 		}
@@ -97,7 +108,11 @@
 
 		base.changeHeight = function(height) {
 	    	base.height = height;
-	    	opts.aspect = base.height / base.width;
+	    	if (opts.aspect) {
+		    	opts.aspect = base.height / base.width;
+		    } else {
+		    	opts.height = height;
+		    }
 			svg.setAttributeNS(null, "height", base.height);
 		}
 

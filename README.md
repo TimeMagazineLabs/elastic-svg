@@ -26,6 +26,9 @@ You must pass `base` a selector representing the parent element in width the SVG
 | `resize` | Info about how the SVG should scale. Current options are: <ul><li>`auto`: Set the `viewBox` to the initial width and height, thus scaling automatically according to the SVG specification </li></ul> |
 | `onResize` | callback function to fire whenever the SVG resizes. This function will receive three arguments: the (new) width, height, and scale, which is (current width) / (original width) |
 
+## How resizing works
+Sometimes you want an SVG to resize according to its original proportions, other times you want the height to remain fixed while the width resizes. If you specify the `height`, it will remain fixed. If you don't, but you specify `aspect`, it remains proportional. If you specify neither, it defaults to an aspect ration of 0.618, or approximately the aspect ratio.
+
 ## A callback example
 
 	var elasticSVG = require("elastic-svg");
@@ -35,3 +38,9 @@ You must pass `base` a selector representing the parent element in width the SVG
 			console.log("Scale is " + s);
 		}
 	});
+
+## Change log
++ *v0.0.4*: Now stays fixed height if only height specified
+
+## To Do
+Allow to make an existing SVG responsive
