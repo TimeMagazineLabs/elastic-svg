@@ -1,4 +1,4 @@
-// v0.0.5
+// v0.0.6
 
 (function() {
     var root = this;
@@ -121,10 +121,10 @@
 	}
 
 	// support various modular environments
-	if (typeof define === "function" && define.amd) { // RequireJS
-	    define(elasticSVG);
-	} else if (typeof module === "object" && module.exports) { // browserify
+	if (typeof module === "object" && module.exports) { // webpack + browserify
 	    module.exports = elasticSVG;
+	} else if (typeof define === "function" && define.amd) { // RequireJS
+	    define(elasticSVG);
 	} else {
 	    root.elasticSVG = elasticSVG; // directly included
 	}

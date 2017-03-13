@@ -40,6 +40,7 @@ Sometimes you want an SVG to resize according to its original proportions, other
 	});
 
 ## Change log
++ *v0.0.6*: Flipped module and AMD check so as not to confuse webpack
 + *v0.0.5*: Now stays fixed height if only height specified
 
 ## To Do
