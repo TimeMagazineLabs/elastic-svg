@@ -1,6 +1,6 @@
-// v0.0.7
+// v0.0.8
 
-let elasticSVG = module.exports = function (selector, opts) {
+export default function elasticSVG(selector, opts) {
 	opts = opts || {};
 
 	// containing DOM element, which defaults to body
