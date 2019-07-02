@@ -3,6 +3,8 @@
 
 v0.0.8
 
+*Note:* The browser distributions in the [`dist`](dist) directory currently require called `elasticSVG.default([...])`. I'm working on it!
+
 Scalable Vector Graphics are one of the Web's most triumphant technologies, but they're not as responsive as they might be. This is a very lightweight, dependency-free library that generates `svg` elements that fit to their container and scale or don't scale as necessary.
 
 ## Example

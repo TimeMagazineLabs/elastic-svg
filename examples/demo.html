@@ -16,15 +16,15 @@
 		<script src="pool_ball.js" charset="utf-8"></script>
 		<script src="../dist/elasticSVG.js" charset="utf-8"></script>
 		<script>
-var b1 = elasticSVG("#poolball1", {
+var b1 = elasticSVG.default("#poolball1", {
 	aspect: 1,
 	resize: "auto"
 });
 
 b1.svg.innerHTML = path;
 
-var b2 = elasticSVG("#poolball1", {
-	aspect: 1,
+var b2 = elasticSVG.default("#poolball2", {
+	height: 615,
 	onResize: function(w, h, z) {
 		console.log(w, h, z);
 	}
