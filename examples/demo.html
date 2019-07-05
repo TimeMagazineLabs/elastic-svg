@@ -2,35 +2,305 @@
 <html lang="en-us">
 	<head>
 		<meta charset="utf-8">
-		<title>D3 Charts example</title>
+		<title>elasticSVG demo</title>
 		<style>
+body {
+	font-family: Arial;
+	font-size: 16px;
+}
+
+p {
+	max-width: 800px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+code {
+	font-size: 17px;
+}
+
 .container {
-	max-width: 700px;
+	display: inline-block;
+	position: relative;	
 	width: 100%;
+}
+
+.draggable {
+	border: 1px solid black;
+	overflow: hidden;
+	box-sizing: border-box;
+	/* width: 100%; */
+}
+
+.dragbar {
+	position: absolute;
+	width: 6px;
+	right: 0;
+	top: 0;
+	background-color: #6ab2ca;
+	height:100%;
+	cursor: col-resize;
+	display: block;
+}
+
+.dragHandle {
+	position: absolute;
+	width: 12px;
+	height: 50px;
+	top: 50%;
+	margin-top: -25px;
+	background-color: #a3cfde;
+    line-height: 50px;
+	font-size: 10px;
+	cursor: col-resize;
+	text-align: center;
+	overflow: visible;
+}
+
+.dragHandleLeft {
+	border-radius: 5px 0 0 5px;
+	right: 3px;
+}
+
+.dragHandleLeft > div {
+	-webkit-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-ms-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+	margin-top: -0.5px;
+}
+
+.dragHandleRight {
+	border-radius: 0 5px 5px 0;
+	left: 3px;
+	border-left: 1px solid black;
+}
+
+.placeholder {
+	width: auto;
+	max-width: 800px;
 }
 		</style>
 	</head>
 	<body>
-		<div class="container" id="poolball1"></div>
-		<div class="container" id="poolball2"></div>
-		<script src="pool_ball.js" charset="utf-8"></script>
+		<p>Here is a regular old <code>&lt;svg&gt;</code> showing how the <a href="https://en.wikipedia.org/wiki/History_of_the_United_States_House_of_Representatives" target="_blank">Size of the House of Representatives</a> has grown over time. This was the basis for <a href="https://time.com/5423623/house-representatives-number-seats/" target="_blank">my essay in TIME</a> on how we're overdue for an expansion. As you can see by resizing the parent <code>&lt;div&gt;</code> with the blue slider (or just dragging the browser window in, SVGs are not responsive.</p>
+		<svg id="congress_non_elastic" width="800" height="270"><rect x="0" y="0" width="800" height="270" style="fill: #404040"></rect><text x="400" y="28" fill="#FFFFFF" text-anchor="middle" font-family="Arial" font-size="20px">Size of the House of Representatives</text><g class="axes" transform="translate(35,45)"><g class="x axis" fill="none" font-size="12" font-family="Arial" text-anchor="middle" transform="translate(0,200)"><path class="domain" stroke="#FFFFFF"d="M0.5,-10V0.5H755.5V-10"></path><g class="tick" opacity="1" transform="translate(6.492063492063492,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1790</text></g><g class="tick" opacity="1" transform="translate(66.4126984126984,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1800</text></g><g class="tick" opacity="1" transform="translate(126.33333333333333,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1810</text></g><g class="tick" opacity="1" transform="translate(186.25396825396825,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1820</text></g><g class="tick" opacity="1" transform="translate(246.1746031746032,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1830</text></g><g class="tick" opacity="1" transform="translate(306.0952380952381,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1840</text></g><g class="tick" opacity="1" transform="translate(366.015873015873,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1850</text></g><g class="tick" opacity="1" transform="translate(425.93650793650795,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1860</text></g><g class="tick" opacity="1" transform="translate(485.8571428571429,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1870</text></g><g class="tick" opacity="1" transform="translate(545.7777777777777,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1880</text></g><g class="tick" opacity="1" transform="translate(605.6984126984128,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1890</text></g><g class="tick" opacity="1" transform="translate(665.6190476190476,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1900</text></g><g class="tick" opacity="1" transform="translate(725.5396825396825,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1910</text></g></g><g class="y axis" fill="none" font-size="12" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="#FFFFFF"d="M755,200.5H0.5V0.5H755"></path><g class="tick" opacity="1" transform="translate(0,177.77272727272728)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">50</text></g><g class="tick" opacity="1" transform="translate(0,155.04545454545456)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">100</text></g><g class="tick" opacity="1" transform="translate(0,132.3181818181818)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">150</text></g><g class="tick" opacity="1" transform="translate(0,109.5909090909091)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">200</text></g><g class="tick" opacity="1" transform="translate(0,86.86363636363636)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">250</text></g><g class="tick" opacity="1" transform="translate(0,64.13636363636365)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">300</text></g><g class="tick" opacity="1" transform="translate(0,41.40909090909091)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">350</text></g><g class="tick" opacity="1" transform="translate(0,18.681818181818187)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">400</text></g><g class="tick" opacity="1" transform="translate(0,0.5)"><line stroke="#FFFFFF" x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">450</text></g></g></g><g class="data" transform="translate(35,45)"><rect x="0" width="10" y="170.45454545454544" height="29.54545454545456" style="fill: rgb(228, 79, 53);"></rect><rect x="11.984126984126984" width="10" y="168.63636363636363" height="31.363636363636374" style="fill: rgb(231, 84, 56);"></rect><rect x="23.96825396825397" width="10" y="152.27272727272728" height="47.72727272727272" style="fill: rgb(247, 136, 80);"></rect><rect x="83.88888888888889" width="10" y="135.9090909090909" height="64.0909090909091" style="fill: rgb(253, 185, 108);"></rect><rect x="143.8095238095238" width="10" y="117.27272727272727" height="82.72727272727273" style="fill: rgb(254, 228, 149);"></rect><rect x="155.79365079365078" width="10" y="116.81818181818183" height="83.18181818181817" style="fill: rgb(254, 229, 150);"></rect><rect x="167.77777777777777" width="10" y="115.9090909090909" height="84.0909090909091" style="fill: rgb(254, 230, 153);"></rect><rect x="179.76190476190476" width="10" y="115" height="85" style="fill: rgb(254, 232, 155);"></rect><rect x="191.74603174603175" width="10" y="103.18181818181819" height="96.81818181818181" style="fill: rgb(250, 246, 173);"></rect><rect x="263.6507936507936" width="10" y="90.90909090909092" height="109.09090909090908" style="fill: rgb(234, 246, 163);"></rect><rect x="275.6349206349206" width="10" y="89.99999999999999" height="110.00000000000001" style="fill: rgb(233, 245, 161);"></rect><rect x="323.57142857142856" width="10" y="98.63636363636363" height="101.36363636363637" style="fill: rgb(246, 248, 173);"></rect><rect x="335.55555555555554" width="10" y="97.72727272727273" height="102.27272727272727" style="fill: rgb(245, 248, 172);"></rect><rect x="347.53968253968253" width="10" y="96.81818181818183" height="103.18181818181817" style="fill: rgb(244, 248, 171);"></rect><rect x="371.5079365079365" width="10" y="94.0909090909091" height="105.9090909090909" style="fill: rgb(240, 247, 168);"></rect><rect x="383.4920634920635" width="10" y="93.63636363636363" height="106.36363636363637" style="fill: rgb(239, 247, 167);"></rect><rect x="407.4603174603174" width="10" y="92.27272727272727" height="107.72727272727273" style="fill: rgb(237, 246, 165);"></rect><rect x="431.4285714285714" width="10" y="119.0909090909091" height="80.9090909090909" style="fill: rgb(254, 224, 145);"></rect><rect x="443.41269841269843" width="10" y="116.81818181818183" height="83.18181818181817" style="fill: rgb(254, 229, 150);"></rect><rect x="455.39682539682536" width="10" y="113.18181818181819" height="86.81818181818181" style="fill: rgb(254, 235, 159);"></rect><rect x="467.3809523809524" width="10" y="112.27272727272727" height="87.72727272727273" style="fill: rgb(254, 236, 161);"></rect><rect x="479.36507936507934" width="10" y="89.54545454545455" height="110.45454545454545" style="fill: rgb(232, 245, 160);"></rect><rect x="503.3333333333333" width="10" y="66.81818181818181" height="133.1818181818182" style="fill: rgb(179, 222, 117);"></rect><rect x="563.2539682539683" width="10" y="52.27272727272728" height="147.72727272727272" style="fill: rgb(135, 203, 103);"></rect><rect x="599.2063492063492" width="10" y="50" height="150" style="fill: rgb(128, 200, 102);"></rect><rect x="611.1904761904761" width="10" y="48.636363636363626" height="151.36363636363637" style="fill: rgb(123, 198, 101);"></rect><rect x="623.1746031746031" width="10" y="37.72727272727272" height="162.27272727272728" style="fill: rgb(85, 181, 94);"></rect><rect x="671.1111111111111" width="10" y="24.545454545454533" height="175.45454545454547" style="fill: rgb(41, 155, 82);"></rect><rect x="731.031746031746" width="10" y="22.272727272727252" height="177.72727272727275" style="fill: rgb(35, 151, 79);"></rect><rect x="743.015873015873" width="10" y="2.2727272727272805" height="197.72727272727272" style="fill: rgb(0, 104, 55);"></rect><rect x="1018.6507936507937" width="10" y="1.818181818181813" height="198.1818181818182" style="fill: rgb(0, 104, 55);"></rect><rect x="1030.6349206349207" width="10" y="1.363636363636374" height="198.63636363636363" style="fill: rgb(0, 104, 55);"></rect><rect x="1042.6190476190477" width="10" y="2.2727272727272805" height="197.72727272727272" style="fill: rgb(0, 104, 55);"></rect></g></svg>
+
+		<p>The traditional approach here is to give the <code>&lt;svg&gt;</code> a width of 100% and use the <a href="http://tutorials.jenkov.com/svg/svg-viewport-view-box.html" target="_blank">SVG <code>viewBox</code> property</a> to scale it up or down. After all, the 'S' in 'SVG' stands for "Scalable." But as you see here, this is not always very effective, particularly when there is text that quickly becomes unreadable.</p>
+
+		<svg id="congress_viewbox" style="width: 100%; max-width: 800px" viewBox="0 0 800 270"><rect x="0" y="0" width="800" height="270" style="fill: #404040"></rect><text x="400" y="28" fill="#FFFFFF" text-anchor="middle" font-family="Arial" font-size="20px">Size of the House of Representatives</text><g class="axes" transform="translate(35,45)"><g class="x axis" fill="none" font-size="12" font-family="Arial" text-anchor="middle" transform="translate(0,200)"><path class="domain" stroke="#FFFFFF"d="M0.5,-10V0.5H755.5V-10"></path><g class="tick" opacity="1" transform="translate(6.492063492063492,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1790</text></g><g class="tick" opacity="1" transform="translate(66.4126984126984,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1800</text></g><g class="tick" opacity="1" transform="translate(126.33333333333333,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1810</text></g><g class="tick" opacity="1" transform="translate(186.25396825396825,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1820</text></g><g class="tick" opacity="1" transform="translate(246.1746031746032,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1830</text></g><g class="tick" opacity="1" transform="translate(306.0952380952381,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1840</text></g><g class="tick" opacity="1" transform="translate(366.015873015873,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1850</text></g><g class="tick" opacity="1" transform="translate(425.93650793650795,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1860</text></g><g class="tick" opacity="1" transform="translate(485.8571428571429,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1870</text></g><g class="tick" opacity="1" transform="translate(545.7777777777777,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1880</text></g><g class="tick" opacity="1" transform="translate(605.6984126984128,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1890</text></g><g class="tick" opacity="1" transform="translate(665.6190476190476,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1900</text></g><g class="tick" opacity="1" transform="translate(725.5396825396825,0)"><line stroke="#FFFFFF" y2="-10"></line><text fill="#FFFFFF" y="3" dy="0.71em">1910</text></g></g><g class="y axis" fill="none" font-size="12" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="#FFFFFF"d="M755,200.5H0.5V0.5H755"></path><g class="tick" opacity="1" transform="translate(0,177.77272727272728)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">50</text></g><g class="tick" opacity="1" transform="translate(0,155.04545454545456)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">100</text></g><g class="tick" opacity="1" transform="translate(0,132.3181818181818)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">150</text></g><g class="tick" opacity="1" transform="translate(0,109.5909090909091)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">200</text></g><g class="tick" opacity="1" transform="translate(0,86.86363636363636)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">250</text></g><g class="tick" opacity="1" transform="translate(0,64.13636363636365)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">300</text></g><g class="tick" opacity="1" transform="translate(0,41.40909090909091)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">350</text></g><g class="tick" opacity="1" transform="translate(0,18.681818181818187)"><line stroke="#FFFFFF"x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">400</text></g><g class="tick" opacity="1" transform="translate(0,0.5)"><line stroke="#FFFFFF" x2="755"></line><text fill="#FFFFFF" x="-3" dy="0.32em">450</text></g></g></g><g class="data" transform="translate(35,45)"><rect x="0" width="10" y="170.45454545454544" height="29.54545454545456" style="fill: rgb(228, 79, 53);"></rect><rect x="11.984126984126984" width="10" y="168.63636363636363" height="31.363636363636374" style="fill: rgb(231, 84, 56);"></rect><rect x="23.96825396825397" width="10" y="152.27272727272728" height="47.72727272727272" style="fill: rgb(247, 136, 80);"></rect><rect x="83.88888888888889" width="10" y="135.9090909090909" height="64.0909090909091" style="fill: rgb(253, 185, 108);"></rect><rect x="143.8095238095238" width="10" y="117.27272727272727" height="82.72727272727273" style="fill: rgb(254, 228, 149);"></rect><rect x="155.79365079365078" width="10" y="116.81818181818183" height="83.18181818181817" style="fill: rgb(254, 229, 150);"></rect><rect x="167.77777777777777" width="10" y="115.9090909090909" height="84.0909090909091" style="fill: rgb(254, 230, 153);"></rect><rect x="179.76190476190476" width="10" y="115" height="85" style="fill: rgb(254, 232, 155);"></rect><rect x="191.74603174603175" width="10" y="103.18181818181819" height="96.81818181818181" style="fill: rgb(250, 246, 173);"></rect><rect x="263.6507936507936" width="10" y="90.90909090909092" height="109.09090909090908" style="fill: rgb(234, 246, 163);"></rect><rect x="275.6349206349206" width="10" y="89.99999999999999" height="110.00000000000001" style="fill: rgb(233, 245, 161);"></rect><rect x="323.57142857142856" width="10" y="98.63636363636363" height="101.36363636363637" style="fill: rgb(246, 248, 173);"></rect><rect x="335.55555555555554" width="10" y="97.72727272727273" height="102.27272727272727" style="fill: rgb(245, 248, 172);"></rect><rect x="347.53968253968253" width="10" y="96.81818181818183" height="103.18181818181817" style="fill: rgb(244, 248, 171);"></rect><rect x="371.5079365079365" width="10" y="94.0909090909091" height="105.9090909090909" style="fill: rgb(240, 247, 168);"></rect><rect x="383.4920634920635" width="10" y="93.63636363636363" height="106.36363636363637" style="fill: rgb(239, 247, 167);"></rect><rect x="407.4603174603174" width="10" y="92.27272727272727" height="107.72727272727273" style="fill: rgb(237, 246, 165);"></rect><rect x="431.4285714285714" width="10" y="119.0909090909091" height="80.9090909090909" style="fill: rgb(254, 224, 145);"></rect><rect x="443.41269841269843" width="10" y="116.81818181818183" height="83.18181818181817" style="fill: rgb(254, 229, 150);"></rect><rect x="455.39682539682536" width="10" y="113.18181818181819" height="86.81818181818181" style="fill: rgb(254, 235, 159);"></rect><rect x="467.3809523809524" width="10" y="112.27272727272727" height="87.72727272727273" style="fill: rgb(254, 236, 161);"></rect><rect x="479.36507936507934" width="10" y="89.54545454545455" height="110.45454545454545" style="fill: rgb(232, 245, 160);"></rect><rect x="503.3333333333333" width="10" y="66.81818181818181" height="133.1818181818182" style="fill: rgb(179, 222, 117);"></rect><rect x="563.2539682539683" width="10" y="52.27272727272728" height="147.72727272727272" style="fill: rgb(135, 203, 103);"></rect><rect x="599.2063492063492" width="10" y="50" height="150" style="fill: rgb(128, 200, 102);"></rect><rect x="611.1904761904761" width="10" y="48.636363636363626" height="151.36363636363637" style="fill: rgb(123, 198, 101);"></rect><rect x="623.1746031746031" width="10" y="37.72727272727272" height="162.27272727272728" style="fill: rgb(85, 181, 94);"></rect><rect x="671.1111111111111" width="10" y="24.545454545454533" height="175.45454545454547" style="fill: rgb(41, 155, 82);"></rect><rect x="731.031746031746" width="10" y="22.272727272727252" height="177.72727272727275" style="fill: rgb(35, 151, 79);"></rect><rect x="743.015873015873" width="10" y="2.2727272727272805" height="197.72727272727272" style="fill: rgb(0, 104, 55);"></rect><rect x="1018.6507936507937" width="10" y="1.818181818181813" height="198.1818181818182" style="fill: rgb(0, 104, 55);"></rect><rect x="1030.6349206349207" width="10" y="1.363636363636374" height="198.63636363636363" style="fill: rgb(0, 104, 55);"></rect><rect x="1042.6190476190477" width="10" y="2.2727272727272805" height="197.72727272727272" style="fill: rgb(0, 104, 55);"></rect></g></svg>
+
+		<p>Enter <code>elasticSVG</code>.</p>
+		<div class="placeholder" id="elastic_chart_A"></div>
+
+
+		<!--
+		<div class="container noselect" id="elastic_chart_B"></div>
+		</div>
+		-->
+		<!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
 		<script src="../dist/elasticSVG.js" charset="utf-8"></script>
 		<script>
-var b1 = elasticSVG.default("#poolball1", {
-	aspect: 1,
+var svg_markup = document.querySelector("#congress_non_elastic").innerHTML;
+
+var b1 = elasticSVG("#elastic_chart_A", {
+	width: 800,
+	height: 270,
 	resize: "auto"
 });
 
-b1.svg.innerHTML = path;
+b1.svg.innerHTML = svg_markup;
+b1.svg.id = "congress_elastic_A";
 
-var b2 = elasticSVG.default("#poolball2", {
+let dragStatic = makeDraggable("#congress_non_elastic");
+
+let dragViewbox = makeDraggable("#congress_viewbox", {
+	initial_width: 818,
+	min_width: 240
+});
+
+window.addEventListener("resize", function() {
+	// dragStatic.resize();
+});
+
+// makeDraggable("#congress_elastic_A");
+
+function makeDraggable(selector, opts) {
+	opts = opts || {};
+
+	var dragging = false;
+	var x = {
+		min: null,
+		max: null,
+		dragstart: null,
+		original_width: null
+	};
+
+	var bounds = null;
+
+	if (typeof selector === "string") {
+		var el = document.querySelector(selector);
+	} else {
+		var el = selector;
+	}
+
+	el.style.padding = `5px 11px 2px 5px`;	
+
+	// https://plainjs.com/javascript/manipulation/wrap-an-html-structure-around-an-element-28/
+	// create draggable container
+	var container = document.createElement("div");
+	container.className = "draggable noselect";
+
+	// create parent wrapper for overflow: hidden
+	var parentContainer = document.createElement("div");
+	parentContainer.className = "container";
+	parentContainer.appendChild(container);
+
+	// insert the parent wrapper before el in the DOM tree
+	el.parentNode.insertBefore(parentContainer, el);
+
+	// move el into wrapper
+	container.appendChild(el);
+
+	// add dragbar
+	var dragbar = document.createElement("div");
+	dragbar.className = "dragbar";
+
+	var dragHandleLeft = document.createElement("div");
+	dragHandleLeft.className = "dragHandle dragHandleLeft";
+	dragHandleLeft.innerHTML = "<div>&#9658;</div>";	
+	dragbar.appendChild(dragHandleLeft);
+
+	var dragHandleRight = document.createElement("div");
+	dragHandleRight.className = "dragHandle dragHandleRight";
+	dragHandleRight.innerHTML = "<div>&#9658;</div>";
+	// dragHandleRight.style.color = "#808080";
+	dragbar.appendChild(dragHandleRight);
+
+	container.appendChild(dragbar);
+
+	function initialize() {
+		bounds = {
+			el: el.getBoundingClientRect(),
+			container: container.getBoundingClientRect(),
+			dragbar: dragbar.getBoundingClientRect()
+		};
+
+		parentContainer.style.maxWidth = bounds.el.width + "px";
+
+		// parentContainer.style.maxWidth = bounds.container.width + "px";
+
+		x.min = Math.floor(bounds.dragbar.width);
+		x.max = Math.ceil(bounds.dragbar.right);
+		x.original_width = Math.round(bounds.container.width);
+
+		if (opts.hasOwnProperty("min_width")) {
+			x.min = +opts.min_width;
+		}
+
+
+		console.log(bounds, x);
+	}
+
+	initialize();
+
+	if (opts.hasOwnProperty("initial_width")) {
+		parentContainer.style.maxWidth = +opts.initial_width + "px";
+		initialize();
+	}
+
+
+	function endDrag() {
+		dragging = false;
+		bounds.container = container.getBoundingClientRect();
+
+		if (bounds.container.width <= x.min) {
+			// document.querySelector(".dragHandleLeft > div").style.color = "#808080";
+		}
+		if (bounds.container.width >= x.original_width) {
+			// document.querySelector(".dragHandleRight > div").style.color = "#808080";
+		}
+
+	}
+
+	dragbar.addEventListener("mousedown", function(e) {
+		dragging = true;
+		x.dragstart = e.clientX;
+	});
+
+	dragbar.addEventListener("mouseup", function(e) {
+		endDrag();
+	});
+
+	window.document.addEventListener("mouseup", function(e) {
+		endDrag();
+	});
+
+	window.document.addEventListener("mousemove", function(e) {
+		if (!dragging) {
+			return;
+		}
+
+		let delta = e.clientX - x.dragstart;
+		let width = bounds.container.width + delta;		
+
+		if (width < x.min) {
+			// parentContainer.style.maxWidth = x.min + "px";
+			parentContainer.style.maxWidth = x.min + "px";
+
+
+			// document.querySelector(".dragHandleLeft > div").style.color = "#808080";
+			// choosing not to cancel the drag until mouse comes up
+			// endDrag();
+			return;
+		}
+
+		if (e.clientX > x.max) {
+			parentContainer.style.maxWidth = x.original_width + "px";
+			// document.querySelector(".dragHandleRight > div").style.color = "#808080";
+			// choosing not to cancel the drag until mouse comes up
+			// endDrag();
+			return;
+		}
+		parentContainer.style.maxWidth = Math.min(width, x.original_width) + "px";
+
+		document.querySelector(".dragHandleLeft > div").style.color = "#000000";
+		document.querySelector(".dragHandleRight > div").style.color = "#000000";
+
+		if (width <= x.min) {
+			// document.querySelector(".dragHandleLeft > div").style.color = "#808080";
+		}
+		if (width >= x.original_width) {
+			// document.querySelector(".dragHandleRight > div").style.color = "#808080";
+		}
+	});
+
+	return {
+		resize: function() {
+			initialize();
+		}
+	}
+}
+
+/*
+
+
+var b2 = elasticSVG("#poolball2", {
 	height: 615,
 	onResize: function(w, h, z) {
 		console.log(w, h, z);
 	}
 });
 
-b2.svg.innerHTML = path;
+b2.svg.innerHTML = svg_chart;
+*/
 		</script>
 	</body>
 </html>
