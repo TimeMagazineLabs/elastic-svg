@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<style>
+body {
+	margin: 0;
+}		
+
+#CA {
+	width: 475px;
+	height: 270px;
+}
+
+	</style>
+</head>
+
+<body>
+	<div id="CA"></div>
+	<!-- load the d3.js library -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="./generateCellularAutomata.js"></script>
+	<script type="text/javascript">
+drawCA("#CA", {
+	ruleNumber: 90,
+	squareSize: 7,
+	margin: 2
+});
+
+console.log(document.querySelector("#CA svg").outerHTML);
+	</script>
+</body>
+
+</html>

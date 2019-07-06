@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>elasticSVG demo A</title>
+		<style>
+body {
+	overflow: hidden;
+	margin: 0;
+	max-width: 475px;
+	min-width: 100px;
+}
+
+.no_select {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+		</style>
+	</head>
+	<body>
+		<div class="no_select" id="elastic_chart_A"></div>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="../../dist/elasticSVG.js"></script>
+		<script src="../src/generateCellularAutomata.js"></script>
+		<script>
+var base = elasticSVG("#elastic_chart_A", {
+	width: 475,
+	aspect: 320 / 475,
+	onResize: function(w, h, z, svg) {
+		drawCA(svg, {
+			ruleNumber: 90,
+			squareSize: 7,
+			margin: 2
+		});
+	}
+});
+		</script>
+	</body>
+</html>

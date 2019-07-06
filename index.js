@@ -1,6 +1,6 @@
 // v0.0.8
 
-export function elasticSVG(selector, opts) {
+export default function elasticSVG(selector, opts) {
 	opts = opts || {};
 
 	// containing DOM element, which defaults to body
@@ -61,36 +61,15 @@ export function elasticSVG(selector, opts) {
 
 		// optional callback
 		if (opts.onResize) {
-			opts.onResize(base.width, base.height, base.scale);
+			opts.onResize(base.width, base.height, base.scale, svg);
 		}
 	}
 
-	var resizeTimer;
+	window.addEventListener("resize", function() {
+		resize();
+	});
 
-	// http://stackoverflow.com/questions/3339825/what-is-the-best-practise-to-not-to-override-other-bound-functions-to-window-onr
-	function addResizeEvent(func, dur) {
-	    var oldResize = window.onresize,
-			resizeTimer,
-			dur = typeof dur === "undefined" ? 100 : parseInt(dur, 10);
-
-		window.onresize = function () {
-			clearTimeout(resizeTimer);
-
-	        if (typeof oldResize === 'function') {
-	            oldResize();
-	        }
-
-			resizeTimer = setTimeout(function() {
-				func();
-			}, dur);
-		}
-	}
-
-	addResizeEvent(resize, 50);
-
-	if (opts.resize && opts.resize === "auto") {
-		resize(); // call this on load since sometimes the initial conditions are wider than container
-	}
+	resize(); // call this on load since sometimes the initial conditions are wider than container
 
 	// methods
 	base.setResize = function(f) {
@@ -113,7 +92,7 @@ export function elasticSVG(selector, opts) {
 		svg.setAttributeNS(null, "height", base.height);
 	}
 
-	base.forceResize = function() {
+	base.triggerResize = function() {
 		resize();
 	}
 

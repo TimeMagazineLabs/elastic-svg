@@ -3,13 +3,23 @@
 
 v0.0.8
 
-*Note:* The browser distributions in the [`dist`](dist) directory currently require called `elasticSVG.default([...])`. I'm working on it!
+Scalable Vector Graphics are one of the Web's most triumphant technologies, but they're not as responsive as they might be. This is a very lightweight, dependency-free library that generates `svg` elements that fit to their container and scale <em>or don't scale</em> as desired.
 
-Scalable Vector Graphics are one of the Web's most triumphant technologies, but they're not as responsive as they might be. This is a very lightweight, dependency-free library that generates `svg` elements that fit to their container and scale or don't scale as necessary.
+## Installation
+
+	npm install elastic-svg --save
+
+And in node:
+
+	import elasticSVG from 'elastic-svg'
+
+Or you can [clone the repo](https://github.com/TimeMagazine/elastic-svg/) and include directly on the page, which adds an `elasticSVG` function to the `window`:
+
+	<script src='./dist/elasticSVG.min.js'></script>
 
 ## Example
 
-	var elasticSVG = require("elastic-svg");
+	import elasticSVG from 'elastic-svg';
 
 	var b = elasticSVG("#container", {
 		height: 400
@@ -38,8 +48,8 @@ Sometimes you want an SVG to resize according to its original proportions, other
 	var elasticSVG = require("elastic-svg");
 
 	var b = base("#container", {
-		onResize: function(w, h, s) {
-			console.log("Scale is " + s);
+		onResize: function(w, h, z) {
+			console.log("Scale is", z);
 		}
 	});
 
