@@ -82,6 +82,18 @@ export default function elasticSVG(selector, opts) {
 		svg.setAttributeNS(null, "height", base.height);
 	}
 
+	/*
+	base.changeWidth = function(width) {
+    	base.width = width;
+    	if (opts.aspect) {
+	    	opts.aspect = base.height / base.width;
+	    } else {
+	    	opts.width = width;
+	    }
+		svg.setAttributeNS(null, "width", base.width);
+	}
+	*/
+
 	base.changeHeight = function(height) {
     	base.height = height;
     	if (opts.aspect) {
