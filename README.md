@@ -1,7 +1,7 @@
 # Elastic SVG elements
 =======
 
-v0.0.9
+v0.1.0
 
 Scalable Vector Graphics are one of the Web's most triumphant technologies, but they're not as responsive as they might be. This is a very lightweight, dependency-free library that generates `svg` elements that fit to their container and scale <em>or don't scale</em> as desired.
 
@@ -54,6 +54,7 @@ Sometimes you want an SVG to resize according to its original proportions, other
 	});
 
 ## Change log
++ *v0.1.0*: Removing an annoying console log
 + *v0.0.8*: Made an ES6 module and created `./dist` from external packager
 + *v0.0.6*: Flipped module and AMD check so as not to confuse webpack
 + *v0.0.5*: Now stays fixed height if only height specified

@@ -1,6 +1,6 @@
 {
   "name": "elastic-svg",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Responsive SVGs with no dependencies",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TimeMagazine/elastic-svg"
+    "url": "https://github.com/TimeMagazineLabs/elastic-svg"
   },
   "keywords": [
     "SVG",
@@ -17,7 +17,7 @@
   "author": "Chris Wilson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TimeMagazine/elastic-svg/issues"
+    "url": "https://github.com/TimeMagazineLabs/elastic-svg/issues"
   },
-  "homepage": "https://github.com/TimeMagazine/elastic-svg"
+  "homepage": "https://github.com/TimeMagazineLabs/elastic-svg"
 }

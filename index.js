@@ -47,7 +47,6 @@ export default function elasticSVG(selector, opts) {
 
 	// function called when the window resizes		
 	function resize() { 
-		console.log("resizing base");
 		base.width = parent.clientWidth;
 		svg.setAttributeNS(null, "width", base.width);
 
