@@ -7,7 +7,7 @@
 body {
 	overflow: hidden;
 	margin: 0;
-	max-width: 475px;
+	max-width: 560px;
 	min-width: 100px;	
 }
 			
@@ -25,7 +25,7 @@ body {
 	<body>
 		<div class="no_select" id="elastic_chart_B"></div>
 		<script src="https://d3js.org/d3.v5.min.js"></script>
-		<script src="../../dist/elasticSVG.min.js"></script>
+		<script src="../../dist/elasticSVG.js"></script>
 		<script src="../src/generateCellularAutomata.js"></script>
 		<script>
 var base = elasticSVG("#elastic_chart_B", {
@@ -33,7 +33,7 @@ var base = elasticSVG("#elastic_chart_B", {
 });
 
 drawCA(base.svg, {
-	ruleNumber: 90,
+	ruleNumber: 30,
 	squareSize: 7,
 	margin: 2
 });

@@ -8,7 +8,7 @@ body {
 	font-family: Arial;
 	font-size: 16px;
 	text-align: center;
-	max-width: 800px;
+	max-width: 600px;
 }
 
 p {
@@ -27,7 +27,7 @@ code.code_block {
 	display: block;
 	margin: 3px 0;
 	text-align: left;
-	max-width: 500px;
+	max-width: 580px;
 }
 
 .container {
@@ -37,7 +37,7 @@ code.code_block {
 	box-sizing: border-box;
 	width: auto;
 	min-width: 200px;
-	max-width: 497px;
+	max-width: 590px;
 	padding: 10px;
 	background: #fff url(./src/arrow.png) 100% 100% no-repeat;
 	background-size: 20px 20px;
@@ -53,7 +53,7 @@ code.code_block {
 iframe {
 	width: 100%;
 	border: none;
-	height: 260px;
+	height: 305px;
 	overflow: hidden;
 }
 
@@ -62,7 +62,7 @@ iframe {
 	<body>
 		<h2>Elastic SVGs</h2>
 
-		<p>By default, <code>&lt;svg&gt;</code> blocks (Scalable Vector Graphics) do not resize to the window and typically have hard-coded dimensions. You can easily fix that with <code>elasticSVG</code>, a small, pure-JavaScript library maintained by <a href="https://github.com/wilson428" target="_target">Chris Wilson</a> and open-sourced by <a href="https://github.com/TimeMagazine/elastic-svg/" target="_blank">TIME Magazine</a>.</p>
+		<p>By default, <code>&lt;svg&gt;</code> blocks (Scalable Vector Graphics) do not resize to the window and typically have hard-coded dimensions, which is a nightmare for responsive design that plays well with mobile devices. You can easily fix that with <code>elasticSVG</code>, a small, pure-JavaScript library maintained by <a href="https://github.com/wilson428" target="_target">Chris Wilson</a> and open-sourced by <a href="https://github.com/TimeMagazine/elastic-svg/" target="_blank">TIME Magazine</a>.</p>
 
 		<h3>Installation</h3>
 
@@ -75,12 +75,18 @@ iframe {
 
 		<h3>How it works</h3>
 
-		<p>The traditional approach is to give your <code>&lt;svg&gt;</code> a width of 100% and use the <a href="http://tutorials.jenkov.com/svg/svg-viewport-view-box.html" target="_blank">SVG <code>viewBox</code> property</a> to automatically scale the graphic up or down. `elasticSVG` does that automatically with the `resize` parameter. You can see it in action below by resizing the window or by dragging the <img style='width: 15px; height: 15px' src='src/arrow.png' /> handle in the lower right corner:</p>
+		<p>The traditional approach for resizing SVGs is to give your <code>&lt;svg&gt;</code> a width of 100% and use the <a href="http://tutorials.jenkov.com/svg/svg-viewport-view-box.html" target="_blank">SVG <code>viewBox</code> property</a> to automatically scale the graphic up or down. `elasticSVG` does that automatically with the `resize` parameter. You can see it in action below by resizing the window or by dragging the <img style='width: 15px; height: 15px' src='src/arrow.png' /> handle in the lower right corner:</p>
 
 		<code class="code_block">
 var base = elasticSVG("#my_container_div", {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;resize: "auto"</br/>
 });
+<br /><br />
+drawCA(base.svg, {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ruleNumber: 30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;squareSize: 7,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;margin: 2<br />
+});<br />
 		</code>
 
 		<div class="container">
@@ -90,12 +96,12 @@ var base = elasticSVG("#my_container_div", {<br/>
 		<p>But as you see here, this is not always very effective, particularly which a detailed graphic like this <a href="https://www.wolframscience.com/nks/p25--how-do-simple-programs-behave/" target="_blank">Cellular Automata</a>. A better solution would be to redraw the graphic in whatever space is available, which you can do with the `onResize` property:</p>
 
 		<code class="code_block">
-var base = elasticSVG("#elastic_chart_A", {<br />
+var base = elasticSVG("#my_container_div", {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;width: 475,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;aspect: 320 / 475,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;onResize: function(w, h, z, svg) {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawCA(svg, {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ruleNumber: 90,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ruleNumber: 30,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;squareSize: 7,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin: 2<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
@@ -106,10 +112,39 @@ var base = elasticSVG("#elastic_chart_A", {<br />
 			<iframe src="./iframes/elasticA.html"></iframe>
 		</div>
 
-		<p>Just for comparison, see how lousy an SVG behaves without so means of resizing:</p>
+		<div class="container">
+			<iframe src="./iframes/elasticC.html"></iframe>
+		</div>
+
+		<p>Just for comparison, see how lousy an SVG behaves without intelligent resizing:</p>
 
 		<div class="container">
 			<iframe src="./iframes/static.html"></iframe>
 		</div>
-	</body>
+	</body>	
+	<script>
+let containers = document.querySelectorAll(".container");		
+
+console.log(ResizeObserver);
+
+var ro = new ResizeObserver(entries => {
+	for (let entry of entries) {
+		const cr = entry.contentRect;
+		// console.log(cr, entry);
+		// console.log('Element:', entry.target);
+		// console.log(`Element size: ${cr.width}px x ${cr.height}px`);
+		// console.log(`Element padding: ${cr.top}px ; ${cr.left}px`);
+	}
+});
+
+containers.forEach(container => {
+	ro.observe(container);
+
+
+	// container.addEventListener("DOMAttrModified", function(e) {
+	// 	console.log(e, this);
+	// });
+});
+
+	</script>
 </html>

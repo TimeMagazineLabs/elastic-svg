@@ -2,15 +2,15 @@
 <html lang="en-us">
 	<head>
 		<meta charset="utf-8">
-		<title>elasticSVG demo A</title>
+		<title>elasticSVG demo B</title>
 		<style>
 body {
 	overflow: hidden;
 	margin: 0;
 	max-width: 560px;
-	min-width: 100px;
+	min-width: 100px;	
 }
-
+			
 .no_select {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
@@ -23,13 +23,13 @@ body {
 		</style>
 	</head>
 	<body>
-		<div class="no_select" id="elastic_chart_A"></div>
+		<div class="no_select" id="elastic_chart_C"></div>
 		<script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="../../dist/elasticSVG.js"></script>
 		<script src="../src/generateCellularAutomata.js"></script>
 		<script>
-var base = elasticSVG("#elastic_chart_A", {
-	width: 560,
+var base = elasticSVG("#elastic_chart_C", {
+	height: 320,
 	aspect: 0.6,
 	onResize: function(w, h, z, svg) {
 		drawCA(svg, {
@@ -39,6 +39,8 @@ var base = elasticSVG("#elastic_chart_A", {
 		});
 	}
 });
+
+
 		</script>
 	</body>
 </html>
