@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "bundle-module --entry=./index.js --name=elasticSVG --env=browser --output_dir=./dist",
-    "minify": "bundle-module --entry=./index.js --name=elasticSVG.min --env=browser --output_dir=./dist --min",
+    "minify": "bundle-module --entry=./index.js --name=elasticSVG --env=browser --output_dir=./dist --min",
     "watch": "bundle-module --entry=./index.js --name=elasticSVG --env=browser --output_dir=./dist --watch"
   },
   "repository": {
