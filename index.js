@@ -1,4 +1,4 @@
-// v0.1.1
+// v0.1.2
 
 export default function elasticSVG(selector, opts) {
 	opts = opts || {};
@@ -12,15 +12,13 @@ export default function elasticSVG(selector, opts) {
 	if (selector instanceof Element) {
 		var parent = selector;
 	} else {
-		var parent = document.querySelectorAll(selector || "body");
+		var parent = document.querySelector(selector || "body");
 	}
 
-	if (!parent || !parent.length) {
-		console.log("Couldn't find a parent for elasticSVG making the selector '" + selector + "'");
+	if (!parent) {
+		console.log("Couldn't find a parent for elasticSVG using the selector '" + selector + "'");
 		return;
 	}
-
-	parent = parent[0];
 
 	let initialWidth = parent.clientWidth;
 

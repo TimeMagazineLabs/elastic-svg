@@ -1,7 +1,7 @@
 # Elastic SVG elements
 =======
 
-v0.1.1
+v0.1.2
 
 Scalable Vector Graphics are one of the Web's most triumphant technologies, but they're not as responsive as they might be. This is a very lightweight, dependency-free library that generates `svg` elements that fit to their container and scale <em>or don't scale</em> as desired.
 
