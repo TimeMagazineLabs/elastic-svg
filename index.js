@@ -1,4 +1,4 @@
-// v0.0.8
+// v0.1.1
 
 export default function elasticSVG(selector, opts) {
 	opts = opts || {};
@@ -8,7 +8,12 @@ export default function elasticSVG(selector, opts) {
 	let hasAspect = opts.hasOwnProperty("aspect");
 
 	// containing DOM element, which defaults to body
-	var parent = document.querySelectorAll(selector || "body");
+
+	if (selector instanceof Element) {
+		var parent = selector;
+	} else {
+		var parent = document.querySelectorAll(selector || "body");
+	}
 
 	if (!parent || !parent.length) {
 		console.log("Couldn't find a parent for elasticSVG making the selector '" + selector + "'");

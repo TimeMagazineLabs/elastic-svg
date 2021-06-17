@@ -75,7 +75,9 @@ iframe {
 
 		<h3>How it works</h3>
 
-		<p>The traditional approach for resizing SVGs is to give your <code>&lt;svg&gt;</code> a width of 100% and use the <a href="http://tutorials.jenkov.com/svg/svg-viewport-view-box.html" target="_blank">SVG <code>viewBox</code> property</a> to automatically scale the graphic up or down. `elasticSVG` does that automatically with the `resize` parameter. You can see it in action below by resizing the window or by dragging the <img style='width: 15px; height: 15px' src='src/arrow.png' /> handle in the lower right corner:</p>
+		<p>The traditional approach for resizing SVGs is to give your <code>&lt;svg&gt;</code> a width of 100% and use the <a href="http://tutorials.jenkov.com/svg/svg-viewport-view-box.html" target="_blank">SVG <code>viewBox</code> property</a> to automatically scale the graphic up or down. `elasticSVG` does that automatically with the `resize` parameter. You can see it in action below by resizing the window or by dragging the <img style='width: 15px; height: 15px' src='src/arrow.png' /> handle in the lower right corner.</p>
+
+		<p>We'll be using a few of <a href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html" target="_blank">Stephen Wolfram's Cellular Automata</a> as demos.</p>
 
 		<code class="code_block">
 var base = elasticSVG("#my_container_div", {<br/>
@@ -121,29 +123,40 @@ var base = elasticSVG("#my_container_div", {<br />
 		<div class="container">
 			<iframe src="./iframes/static.html"></iframe>
 		</div>
+
+		<p>And let's test passing an element instead of a selector</p>
+
+		<div id="containerTest"></div>
+
 	</body>	
+	<script src="../dist/elasticSVG.js"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="./src/generateCellularAutomata.js"></script>
 	<script>
 let containers = document.querySelectorAll(".container");		
-
-console.log(ResizeObserver);
 
 var ro = new ResizeObserver(entries => {
 	for (let entry of entries) {
 		const cr = entry.contentRect;
-		// console.log(cr, entry);
-		// console.log('Element:', entry.target);
-		// console.log(`Element size: ${cr.width}px x ${cr.height}px`);
-		// console.log(`Element padding: ${cr.top}px ; ${cr.left}px`);
 	}
 });
 
 containers.forEach(container => {
 	ro.observe(container);
+});
 
+let el = document.querySelector("containerTest");
 
-	// container.addEventListener("DOMAttrModified", function(e) {
-	// 	console.log(e, this);
-	// });
+elasticSVG(el, {
+	width: 300,
+	height: 200,
+	onResize: function(w, h, z, svg) {
+		drawCA(svg, {
+			ruleNumber: 126,
+			squareSize: 7,
+			margin: 2
+		});
+	}
 });
 
 	</script>
